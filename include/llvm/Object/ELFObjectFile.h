@@ -1048,6 +1048,8 @@ StringRef ELFObjectFile<ELFT>::getFileFormatName() const {
       return "ELF32-sparc";
     case ELF::EM_AMDGPU:
       return "ELF32-amdgpu";
+    case ELF::EM_ECLAIR:
+      return "ELF32-eclair";
     default:
       return "ELF32-unknown";
     }
@@ -1150,6 +1152,9 @@ template <class ELFT> Triple::ArchType ELFObjectFile<ELFT>::getArch() const {
 
   case ELF::EM_BPF:
     return IsLittleEndian ? Triple::bpfel : Triple::bpfeb;
+
+  case ELF::EM_ECLAIR:
+    return Triple::eclair;
 
   default:
     return Triple::UnknownArch;

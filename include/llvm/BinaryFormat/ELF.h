@@ -311,6 +311,8 @@ enum {
   EM_RISCV = 243,         // RISC-V
   EM_LANAI = 244,         // Lanai 32-bit processor
   EM_BPF = 247,           // Linux kernel bpf virtual machine
+
+  EM_ECLAIR = 0x3419      // ECLair
 };
 
 // Object file classes.
@@ -368,6 +370,11 @@ enum {
 // i386 relocations.
 enum {
 #include "ELFRelocs/i386.def"
+};
+
+// ECLair relocations.
+enum {
+#include "ELFRelocs/eclair.def"
 };
 
 // ELF Relocation types for PPC32
