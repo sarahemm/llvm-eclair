@@ -14,6 +14,7 @@
 #ifndef LLVM_LIB_TARGET_ECLAIR_ECLAIRTARGETMACHINE_H
 #define LLVM_LIB_TARGET_ECLAIR_ECLAIRTARGETMACHINE_H
 
+#include "MCTargetDesc/ECLairMCTargetDesc.h"
 #include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "llvm/IR/DataLayout.h"
 #include "llvm/Target/TargetMachine.h"
@@ -35,8 +36,6 @@ public:
     return TLOF.get();
   }
 };
-
-Target &getTheECLairTarget();
 
 }
 

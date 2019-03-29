@@ -2,11 +2,13 @@ set(LLVM_TARGET_DEFINITIONS ECLair.td)
 
 tablegen(LLVM ECLairGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM ECLairGenInstrInfo.inc -gen-instr-info)
+tablegen(LLVM ECLairGenMCCodeEmitter.inc -gen-emitter)
 
-add_public_tablegen_target(RISCVCommonTableGen)
+add_public_tablegen_target(ECLairCommonTableGen)
 
 add_llvm_target(ECLairCodeGen
   ECLairTargetMachine.cpp
 )
 
 add_subdirectory(TargetInfo)
+add_subdirectory(MCTargetDesc)

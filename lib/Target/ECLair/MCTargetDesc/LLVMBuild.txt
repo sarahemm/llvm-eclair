@@ -1,4 +1,4 @@
-;===- ./lib/Target/ECLair/LLVMBuild.txt -------------------------*- Conf -*--===;
+;===- ./lib/Target/ECLair/MCTargetDesc/LLVMBuild.txt ------------*- Conf -*--===;
 ;
 ;                     The LLVM Compiler Infrastructure
 ;
@@ -15,17 +15,9 @@
 ;
 ;===------------------------------------------------------------------------===;
 
-[common]
-subdirectories = TargetInfo MCTargetDesc
-
 [component_0]
-type = TargetGroup
-name = ECLair
-parent = Target
-
-[component_1]
 type = Library
-name = ECLairCodeGen
+name = ECLairDesc
 parent = ECLair
-required_libraries = Core CodeGen ECLairInfo Support Target
+required_libraries = MC ECLairInfo Support
 add_to_library_groups = ECLair
