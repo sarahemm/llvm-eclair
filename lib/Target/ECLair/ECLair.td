@@ -20,18 +20,23 @@ include "llvm/Target/Target.td"
 include "ECLairRegisterInfo.td"
 include "ECLairInstrInfo.td"
 
-def ECLairInstrInfo : InstrInfo;
-
 //===----------------------------------------------------------------------===//
 // ECLair processors supported.
 //===----------------------------------------------------------------------===//
 
+def ECLairInstrInfo : InstrInfo;
+
+def ECLairAsmParser : AsmParser {
+  let ShouldEmitMatchRegisterAltName = 1;
+}
+
 def : ProcessorModel<"generic-eclair", NoSchedModel, []>;
 
 //===----------------------------------------------------------------------===//
-// Define the RISC-V target.
+// Define the ECLair target.
 //===----------------------------------------------------------------------===//
 
 def ECLair : Target {
   let InstructionSet = ECLairInstrInfo;
+  let AssemblyParsers = [ECLairAsmParser];
 }

@@ -17,8 +17,20 @@ include "ECLairInstrFormats.td"
 // Operand and SDNode transformation definitions.
 //===----------------------------------------------------------------------===//
 
-def simm8  : Operand<i8>;
-def simm16 : Operand<i16>;
+class SImmAsmOperand<int width>
+    : AsmOperandClass {
+  let Name = "SImm" # width;
+  let RenderMethod = "addImmOperands";
+  let DiagnosticType = !strconcat("Invalid", Name);
+}
+
+def simm8 : Operand<i8> {
+  let ParserMatchClass = SImmAsmOperand<8>;
+}
+
+def simm16 : Operand<i16> {
+  let ParserMatchClass = SImmAsmOperand<16>;
+}
 
 //===----------------------------------------------------------------------===//
 // Instruction Class Templates
