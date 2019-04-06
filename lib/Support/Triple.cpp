@@ -143,6 +143,8 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
 
   case riscv32:
   case riscv64:     return "riscv";
+
+  case eclair:      return "eclair";
   }
 }
 
@@ -308,6 +310,7 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("wasm64", wasm64)
     .Case("renderscript32", renderscript32)
     .Case("renderscript64", renderscript64)
+    .Case("eclair", eclair)
     .Default(UnknownArch);
 }
 
@@ -434,6 +437,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Case("wasm64", Triple::wasm64)
     .Case("renderscript32", Triple::renderscript32)
     .Case("renderscript64", Triple::renderscript64)
+    .Case("eclair", Triple::eclair)
     .Default(Triple::UnknownArch);
 
   // Some architectures require special parsing logic just to compute the

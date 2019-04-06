@@ -55,4 +55,7 @@ createECLairELFObjectWriter(uint8_t OSABI);
 #define GET_INSTRINFO_ENUM
 #include "ECLairGenInstrInfo.inc"
 
+#define GET_SUBTARGETINFO_ENUM
+#include "ECLairGenSubtargetInfo.inc"
+
 #endif

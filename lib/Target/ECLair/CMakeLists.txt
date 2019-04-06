@@ -4,6 +4,7 @@ tablegen(LLVM ECLairGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM ECLairGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM ECLairGenMCCodeEmitter.inc -gen-emitter)
 tablegen(LLVM ECLairGenAsmMatcher.inc -gen-asm-matcher)
+tablegen(LLVM ECLairGenSubtargetInfo.inc -gen-subtarget)
 
 add_public_tablegen_target(ECLairCommonTableGen)
 

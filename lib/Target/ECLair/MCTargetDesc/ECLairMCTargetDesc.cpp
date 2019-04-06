@@ -28,6 +28,9 @@
 #define GET_REGINFO_MC_DESC
 #include "ECLairGenRegisterInfo.inc"
 
+#define GET_SUBTARGETINFO_MC_DESC
+#include "ECLairGenSubtargetInfo.inc"
+
 using namespace llvm;
 
 static MCInstrInfo *createECLairMCInstrInfo() {
@@ -48,6 +51,14 @@ static MCAsmInfo *createECLairMCAsmInfo(const MCRegisterInfo &MRI,
   return new ECLairMCAsmInfo(TT);
 }
 
+static MCSubtargetInfo *createECLairMCSubtargetInfo(const Triple &TT,
+                                                   StringRef CPU, StringRef FS) {
+  std::string CPUName = CPU;
+  if (CPUName.empty())
+    CPUName = "generic-eclair";
+  return createECLairMCSubtargetInfoImpl(TT, CPUName, FS);
+}
+
 extern "C" void LLVMInitializeECLairTargetMC() {
   for (Target *T : {&getTheECLairTarget()}) {
     TargetRegistry::RegisterMCAsmInfo(*T, createECLairMCAsmInfo);
@@ -55,5 +66,6 @@ extern "C" void LLVMInitializeECLairTargetMC() {
     TargetRegistry::RegisterMCRegInfo(*T, createECLairMCRegisterInfo);
     TargetRegistry::RegisterMCAsmBackend(*T, createECLairAsmBackend);
     TargetRegistry::RegisterMCCodeEmitter(*T, createECLairMCCodeEmitter);
+    TargetRegistry::RegisterMCSubtargetInfo(*T, createECLairMCSubtargetInfo);
   }
 }
