@@ -47,8 +47,8 @@ class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
 class ECLairInst16<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
     : Instruction {
-  field bits<8> Inst;
-  let Size = 1;
+  field bits<16> Inst;
+  let Size = 2;
 
   bits<8> Opcode = 0;
 
@@ -70,9 +70,15 @@ class ECLairInstNoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, 
 
 class ECLairInstTwoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr
 , string argstr>
-    : ECLairInst16<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+    : ECLairInst16<outs, ins, opcodestr, argstr, [], InstFormatTwoReg> {
+  bits<4> rd;
+  bits<4> rs2;
 
   let Opcode = opcode.Value;
+  let Inst{13-8} = opcode.Value{5-0};
+  let Inst{15-14} = rd{1-0};
+  let Inst{1-0} = rs2{1-0};
+  let Inst{7-2} = 0;
 }
 
 // TODO: this is way more than 8 bits wide

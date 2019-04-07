@@ -71,7 +71,6 @@ MCCodeEmitter *llvm::createECLairMCCodeEmitter(const MCInstrInfo &MCII,
 void ECLairMCCodeEmitter::encodeInstruction(const MCInst &MI, raw_ostream &OS,
                                            SmallVectorImpl<MCFixup> &Fixups,
                                            const MCSubtargetInfo &STI) const {
-  // FIXME: this might not work with 8/16-bit instructions (which are all of them)
   const MCInstrDesc &Desc = MCII.get(MI.getOpcode());
   unsigned Size = Desc.getSize();
   switch(Size) {

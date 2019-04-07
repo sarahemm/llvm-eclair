@@ -42,8 +42,8 @@ class Basic<ECLairOpcode opcode, string opcodestr>
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class RegReg<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstTwoReg<opcode, (outs FullWidth:$rd), (ins FullWidth:$rs1, FullWidth:$rs2),
-                opcodestr, "$rd, $rs1, $rs2">;
+    : ECLairInstTwoReg<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, FullWidth:$rs2),
+                opcodestr, "$rd, $rs2">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class ImmWord<ECLairOpcode opcode, string opcodestr>
