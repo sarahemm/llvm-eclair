@@ -5,6 +5,7 @@ tablegen(LLVM ECLairGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM ECLairGenMCCodeEmitter.inc -gen-emitter)
 tablegen(LLVM ECLairGenAsmMatcher.inc -gen-asm-matcher)
 tablegen(LLVM ECLairGenSubtargetInfo.inc -gen-subtarget)
+tablegen(LLVM ECLairGenAsmWriter.inc -gen-asm-writer)
 
 add_public_tablegen_target(ECLairCommonTableGen)
 
@@ -13,5 +14,6 @@ add_llvm_target(ECLairCodeGen
 )
 
 add_subdirectory(AsmParser)
-add_subdirectory(TargetInfo)
+add_subdirectory(InstPrinter)
 add_subdirectory(MCTargetDesc)
+add_subdirectory(TargetInfo)

@@ -12,6 +12,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "ECLairMCTargetDesc.h"
+#include "InstPrinter/ECLairInstPrinter.h"
 #include "ECLairMCAsmInfo.h"
 #include "llvm/ADT/STLExtras.h"
 #include "llvm/MC/MCAsmInfo.h"
@@ -59,6 +60,15 @@ static MCSubtargetInfo *createECLairMCSubtargetInfo(const Triple &TT,
   return createECLairMCSubtargetInfoImpl(TT, CPUName, FS);
 }
 
+static MCInstPrinter *createECLairMCInstPrinter(const Triple &T,
+                                               unsigned SyntaxVariant,
+                                               const MCAsmInfo &MAI,
+                                               const MCInstrInfo &MII,
+                                               const MCRegisterInfo &MRI) {
+  return new ECLairInstPrinter(MAI, MII, MRI);
+}
+
+
 extern "C" void LLVMInitializeECLairTargetMC() {
   for (Target *T : {&getTheECLairTarget()}) {
     TargetRegistry::RegisterMCAsmInfo(*T, createECLairMCAsmInfo);
@@ -67,5 +77,6 @@ extern "C" void LLVMInitializeECLairTargetMC() {
     TargetRegistry::RegisterMCAsmBackend(*T, createECLairAsmBackend);
     TargetRegistry::RegisterMCCodeEmitter(*T, createECLairMCCodeEmitter);
     TargetRegistry::RegisterMCSubtargetInfo(*T, createECLairMCSubtargetInfo);
+    TargetRegistry::RegisterMCInstPrinter(*T, createECLairMCInstPrinter);
   }
 }
