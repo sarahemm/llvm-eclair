@@ -18,6 +18,8 @@
 #include "llvm/MC/MCContext.h"
 #include "llvm/MC/MCExpr.h"
 #include "llvm/MC/MCInst.h"
+#include "llvm/MC/MCInstBuilder.h"
+#include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSymbol.h"
 #include "llvm/Support/EndianStream.h"
@@ -35,9 +37,10 @@ class ECLairMCCodeEmitter : public MCCodeEmitter {
   ECLairMCCodeEmitter(const ECLairMCCodeEmitter &) = delete;
   void operator=(const ECLairMCCodeEmitter &) = delete;
   MCContext &Ctx;
+  MCInstrInfo const &MCII;
 
 public:
-  ECLairMCCodeEmitter(MCContext &ctx) : Ctx(ctx) {}
+  ECLairMCCodeEmitter(MCContext &ctx, MCInstrInfo const &MCII) : Ctx(ctx), MCII(MCII) {}
 
   ~ECLairMCCodeEmitter() override {}
 
@@ -62,15 +65,28 @@ public:
 MCCodeEmitter *llvm::createECLairMCCodeEmitter(const MCInstrInfo &MCII,
                                               const MCRegisterInfo &MRI,
                                               MCContext &Ctx) {
-  return new ECLairMCCodeEmitter(Ctx);
+  return new ECLairMCCodeEmitter(Ctx, MCII);
 }
 
 void ECLairMCCodeEmitter::encodeInstruction(const MCInst &MI, raw_ostream &OS,
                                            SmallVectorImpl<MCFixup> &Fixups,
                                            const MCSubtargetInfo &STI) const {
   // FIXME: this might not work with 8/16-bit instructions (which are all of them)
-  uint16_t Bits = getBinaryCodeForInstr(MI, Fixups, STI);
-  support::endian::write(OS, Bits, support::big);
+  const MCInstrDesc &Desc = MCII.get(MI.getOpcode());
+  unsigned Size = Desc.getSize();
+  switch(Size) {
+    default:
+      llvm_unreachable("Unhandled encodeInstruction length!");
+    case 1: {
+      uint8_t ByteBits = getBinaryCodeForInstr(MI, Fixups, STI);
+      support::endian::write(OS, ByteBits, support::big);
+      break;
+    }
+    case 2: {
+      uint16_t WordBits = getBinaryCodeForInstr(MI, Fixups, STI);
+      support::endian::write(OS, WordBits, support::big);
+    }
+  }
   // FIXME: this won't compile but we should make it work
   //++MCNumEmitted; // Keep track of the # of mi's emitted.
 }
