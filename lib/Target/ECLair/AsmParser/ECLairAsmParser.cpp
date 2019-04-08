@@ -133,6 +133,10 @@ public:
     return (isConstantImm() && isInt<16>(getConstantImm()));
   }
 
+  bool isUImm16() const {
+    return (isConstantImm() && isUInt<16>(getConstantImm()));
+  }
+
   /// getStartLoc - Gets location of the first token of this operand
   SMLoc getStartLoc() const override { return StartLoc; }
   /// getEndLoc - Gets location of the last token of this operand

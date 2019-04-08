@@ -25,6 +25,7 @@ def OPC_ADD16   : ECLairOpcode<0b00010000>;
 def OPC_JMPE    : ECLairOpcode<0b11101111>;
 def OPC_JMPNE   : ECLairOpcode<0b11110011>;
 def OPC_LDI8L   : ECLairOpcode<0b00001001>;
+def OPC_LDI16   : ECLairOpcode<0b00001010>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
@@ -62,6 +63,25 @@ class ECLairInst16<dag outs, dag ins, string opcodestr, string argstr,
   let Pattern = pattern;
 }
 
+class ECLairInst24<dag outs, dag ins, string opcodestr, string argstr,
+             list<dag> pattern, InstFormat format>
+    : Instruction {
+  field bits<24> Inst;
+  let Size = 3;
+
+  bits<8> Opcode = 0;
+
+  let Inst{7-0} = Opcode;
+
+  let Namespace = "ECLair";
+
+  dag OutOperandList = outs;
+  dag InOperandList = ins;
+  let AsmString = opcodestr # "\t" # argstr;
+  let Pattern = pattern;
+}
+
+
 class ECLairInstNoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
     : ECLairInst8<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
 
@@ -81,11 +101,15 @@ class ECLairInstTwoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr
   let Inst{7-2} = 0;
 }
 
-// TODO: this is way more than 8 bits wide
 class ECLairInstImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
-    : ECLairInst8<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
-
+    : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+  bits<4> rd;
+  bits<16> imm;
+  
   let Opcode = opcode.Value;
+  let Inst{23-22} = rd{1-0};
+  let Inst{21-16} = opcode.Value{5-0};
+  let Inst{15-0} = imm;
 }
 
 class ECLairInstRegImmByte<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>

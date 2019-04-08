@@ -84,6 +84,15 @@ void ECLairMCCodeEmitter::encodeInstruction(const MCInst &MI, raw_ostream &OS,
     case 2: {
       uint16_t WordBits = getBinaryCodeForInstr(MI, Fixups, STI);
       support::endian::write(OS, WordBits, support::big);
+      break;
+    }
+    case 3: {
+      uint32_t ByteWordBits = getBinaryCodeForInstr(MI, Fixups, STI);
+      uint8_t OpcodeBits = (ByteWordBits >> 16) & 0xFF;
+      uint16_t ArgBits = ByteWordBits & 0xFFFF;
+      support::endian::write(OS, OpcodeBits, support::big);
+      support::endian::write(OS, ArgBits, support::big);
+      break;
     }
   }
   // FIXME: this won't compile but we should make it work

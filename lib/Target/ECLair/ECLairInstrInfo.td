@@ -24,12 +24,23 @@ class SImmAsmOperand<int width>
   let DiagnosticType = !strconcat("Invalid", Name);
 }
 
+class UImmAsmOperand<int width>
+    : AsmOperandClass {
+  let Name = "UImm" # width;
+  let RenderMethod = "addImmOperands";
+  let DiagnosticType = !strconcat("Invalid", Name);
+}
+
 def simm8 : Operand<i8> {
   let ParserMatchClass = SImmAsmOperand<8>;
 }
 
 def simm16 : Operand<i16> {
   let ParserMatchClass = SImmAsmOperand<16>;
+}
+
+def uimm16 : Operand<i16> {
+  let ParserMatchClass = UImmAsmOperand<16>;
 }
 
 //===----------------------------------------------------------------------===//
@@ -46,9 +57,9 @@ class RegReg<ECLairOpcode opcode, string opcodestr>
                 opcodestr, "$rd, $rs2">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
-class ImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstImmWord<opcode, (outs), (ins simm16:$imm16),
-                              opcodestr, "$imm16">;
+class UImmWord<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstImmWord<opcode, (outs), (ins FullWidth:$rd, uimm16:$imm),
+                              opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class RegImmByte<ECLairOpcode opcode, string opcodestr>
@@ -62,8 +73,8 @@ class RegImmByte<ECLairOpcode opcode, string opcodestr>
 def HALT : Basic<OPC_HALT, "halt"> {}
 
 def ADD16 : RegReg<OPC_ADD16, "add16"> {}
+def LDI16 : UImmWord<OPC_LDI16, "ldi16"> {}
 
 def LDI8L : RegImmByte<OPC_LDI8L, "ldi8l"> {}
-
-def JMPE : ImmWord<OPC_JMPE, "jmpe"> {}
-def JMPNE : ImmWord<OPC_JMPNE, "jmpe"> {}
+def JMPE : UImmWord<OPC_JMPE, "jmpe"> {}
+def JMPNE : UImmWord<OPC_JMPNE, "jmpe"> {}
