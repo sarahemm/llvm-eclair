@@ -25,6 +25,7 @@ def OPC_CIR     : ECLairOpcode<0b10101111>;
 
 def OPC_ADD16   : ECLairOpcode<0b00010000>;
 def OPC_SHL16   : ECLairOpcode<0b00001100>;
+def OPC_SHR16   : ECLairOpcode<0b00001111>;
 
 def OPC_JMPE    : ECLairOpcode<0b11101111>;
 def OPC_JMPNE   : ECLairOpcode<0b11110011>;

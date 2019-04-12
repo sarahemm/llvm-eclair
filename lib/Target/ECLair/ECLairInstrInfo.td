@@ -82,6 +82,7 @@ def CIR : Basic<OPC_CIR, "cir"> {}
 
 def ADD16 : RegReg<OPC_ADD16, "add16"> {}
 def SHL16 : FullRegImmByte<OPC_SHL16, "shl16"> {}
+def SHR16 : FullRegImmByte<OPC_SHR16, "shr16"> {}
 def LDI16 : UImmWord<OPC_LDI16, "ldi16"> {}
 
 def LDI8L : HalfRegImmByte<OPC_LDI8L, "ldi8l"> {}
