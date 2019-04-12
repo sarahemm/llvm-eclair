@@ -47,4 +47,6 @@ let Namespace = "ECLair" in {
 
   def FullWidth : RegisterClass<"ECLair", [i16], 16, (add A, B, C, D, SP)>;
   def HalfWidth : RegisterClass<"ECLair", [i8],  8,  (add AL, AH, BL, BH, CL, CH, DL, DH)>;
+  def HalfWidthLow : RegisterClass<"ECLair", [i8],  8,  (add AL, BL, CL, DL)>;
+  def HalfWidthHigh : RegisterClass<"ECLair", [i8],  8,  (add AH, BH, CH, DH)>;
 }
