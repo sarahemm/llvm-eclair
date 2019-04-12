@@ -35,6 +35,10 @@ def simm8 : Operand<i8> {
   let ParserMatchClass = SImmAsmOperand<8>;
 }
 
+def uimm8 : Operand<i8> {
+  let ParserMatchClass = UImmAsmOperand<8>;
+}
+
 def simm16 : Operand<i16> {
   let ParserMatchClass = SImmAsmOperand<16>;
 }
@@ -62,19 +66,24 @@ class UImmWord<ECLairOpcode opcode, string opcodestr>
                               opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
-class RegImmByte<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstRegImmByte<opcode, (outs), (ins HalfWidth:$rs1, simm8:$imm8),
-                                            opcodestr, "$rs1, $imm8">;
+class HalfRegImmByte<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstRegImmByte<opcode, (outs HalfWidth:$rd), (ins HalfWidth:$rs1, uimm8:$imm), opcodestr, "$rd, $imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class FullRegImmByte<ECLairOpcode opcode, string opcodestr>
+      : ECLairInstRegImmByte<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
 
 //===----------------------------------------------------------------------===//
 // Instructions
 //===----------------------------------------------------------------------===//
 
 def HALT : Basic<OPC_HALT, "halt"> {}
+def CIR : Basic<OPC_CIR, "cir"> {}
 
 def ADD16 : RegReg<OPC_ADD16, "add16"> {}
+def SHL16 : FullRegImmByte<OPC_SHL16, "shl16"> {}
 def LDI16 : UImmWord<OPC_LDI16, "ldi16"> {}
 
-def LDI8L : RegImmByte<OPC_LDI8L, "ldi8l"> {}
+def LDI8L : HalfRegImmByte<OPC_LDI8L, "ldi8l"> {}
 def JMPE : UImmWord<OPC_JMPE, "jmpe"> {}
 def JMPNE : UImmWord<OPC_JMPNE, "jmpe"> {}
