@@ -117,6 +117,9 @@ def INV16 : FullReg<OPC_INV16, "inv"> {}
 def INV8L : HalfRegLow<OPC_INV8L, "inv"> {}
 def INV8H : HalfRegHigh<OPC_INV8H, "inv"> {}
 
+def SWAB  : FullReg<OPC_SWAB, "swab"> {}
+def SEX   : FullReg<OPC_SEX,  "sex"> {}
+
 def LDI16 : FullRegImmWord<OPC_LDI16, "ldi"> {}
 def LDI16SP : SPRegImmWord<OPC_LDI16SP, "ldi"> {}
 def LDI16DP : DPRegImmWord<OPC_LDI16DP, "ldi"> {}
