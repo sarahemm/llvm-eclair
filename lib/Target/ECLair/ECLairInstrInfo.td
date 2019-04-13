@@ -56,7 +56,7 @@ class Basic<ECLairOpcode opcode, string opcodestr>
     : ECLairInstNoReg<opcode, (outs), (ins), opcodestr, "">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
-class RegReg<ECLairOpcode opcode, string opcodestr>
+class FullRegFullReg<ECLairOpcode opcode, string opcodestr>
     : ECLairInstTwoReg<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, FullWidth:$rs2),
                 opcodestr, "$rd, $rs2">;
 
@@ -73,9 +73,12 @@ class HalfRegHigh<ECLairOpcode opcode, string opcodestr>
     : ECLairInstOneReg<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src), opcodestr, "$rd">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
-class UImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstImmWord<opcode, (outs), (ins FullWidth:$rd, uimm16:$imm),
-                              opcodestr, "$rd, $imm">;
+class ImmWord<ECLairOpcode opcode, string opcodestr>
+      : ECLairInstImmWord<opcode, (outs), (ins uimm16:$imm), opcodestr, "$imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class FullRegImmWord<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstRegImmWord<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLowImmByte<ECLairOpcode opcode, string opcodestr>
@@ -96,17 +99,17 @@ class FullRegImmByte<ECLairOpcode opcode, string opcodestr>
 def HALT : Basic<OPC_HALT, "halt"> {}
 def CIR : Basic<OPC_CIR, "cir"> {}
 
-def ADD16 : RegReg<OPC_ADD16, "add16"> {}
-def SHL16 : FullRegImmByte<OPC_SHL16, "shl16"> {}
-def SHR16 : FullRegImmByte<OPC_SHR16, "shr16"> {}
-def LDI16 : UImmWord<OPC_LDI16, "ldi16"> {}
+def ADD16 : FullRegFullReg<OPC_ADD16, "add"> {}
+def SHL16 : FullRegImmByte<OPC_SHL16, "shl"> {}
+def SHR16 : FullRegImmByte<OPC_SHR16, "shr"> {}
 
 def INV16 : FullReg<OPC_INV16, "inv"> {}
 def INV8L : HalfRegLow<OPC_INV8L, "inv"> {}
 def INV8H : HalfRegHigh<OPC_INV8H, "inv"> {}
 
-def LDI8L : HalfRegLowImmByte<OPC_LDI8L, "ldi8l"> {}
-def LDI8H : HalfRegHighImmByte<OPC_LDI8H, "ldi8h"> {}
+def LDI16 : FullRegImmWord<OPC_LDI16, "ldi"> {}
+def LDI8L : HalfRegLowImmByte<OPC_LDI8L, "ldi"> {}
+def LDI8H : HalfRegHighImmByte<OPC_LDI8H, "ldi"> {}
 
-def JMPE : UImmWord<OPC_JMPE, "jmpe"> {}
-def JMPNE : UImmWord<OPC_JMPNE, "jmpe"> {}
+def JMPE : ImmWord<OPC_JMPE, "jmpe"> {}
+def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}

@@ -122,7 +122,7 @@ class ECLairInstTwoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr
   let Inst{7-2} = 0;
 }
 
-class ECLairInstImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
+class ECLairInstRegImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
     : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
   bits<4> rd;
   bits<16> imm;
@@ -143,3 +143,14 @@ class ECLairInstRegImmByte<ECLairOpcode opcode, dag outs, dag ins, string opcode
   let Inst{13-8} = opcode.Value{5-0};
   let Inst{7-0} = imm;
 }
+
+
+class ECLairInstImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
+    : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+      bits<16> imm;
+
+      let Opcode = opcode.Value;
+      let Inst{23-16} = opcode.Value{7-0};
+      let Inst{15-0} = imm;
+}
+
