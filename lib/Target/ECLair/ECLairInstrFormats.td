@@ -26,6 +26,8 @@ def OPC_EI      : ECLairOpcode<0b00010111>;
 def OPC_DI      : ECLairOpcode<0b01000010>;
 
 def OPC_ADD16   : ECLairOpcode<0b00010000>;
+def OPC_ADD8L   : ECLairOpcode<0b00011000>;
+def OPC_ADD8H   : ECLairOpcode<0b00011001>;
 
 def OPC_SHL16   : ECLairOpcode<0b00001100>;
 def OPC_SHL8L   : ECLairOpcode<0b00010011>;

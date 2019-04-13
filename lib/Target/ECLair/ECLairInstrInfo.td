@@ -61,6 +61,14 @@ class FullRegFullReg<ECLairOpcode opcode, string opcodestr>
                 opcodestr, "$rd, $rs2">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class HalfRegLowHalfRegLow<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstTwoReg<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src, HalfWidthLow:$rs2), opcodestr, "$rd, $rs2">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class HalfRegHighHalfRegHigh<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstTwoReg<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src, HalfWidthHigh:$rs2), opcodestr, "$rd, $rs2">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class FullReg<ECLairOpcode opcode, string opcodestr>
     : ECLairInstOneReg<opcode, (outs FullWidth:$rd), (ins FullWidth:$src), opcodestr, "$rd">;
 
@@ -110,6 +118,8 @@ def EI    : Basic<OPC_EI,   "ei"> {}
 def DI    : Basic<OPC_DI,   "di"> {}
  
 def ADD16 : FullRegFullReg<OPC_ADD16, "add"> {}
+def ADD8L : HalfRegLowHalfRegLow<OPC_ADD8L, "add"> {}
+def ADD8H : HalfRegHighHalfRegHigh<OPC_ADD8H, "add"> {}
 
 def SHL16 : FullRegImmByte<OPC_SHL16, "shl"> {}
 def SHL8L : HalfRegLowImmByte<OPC_SHL8L, "shl"> {}
