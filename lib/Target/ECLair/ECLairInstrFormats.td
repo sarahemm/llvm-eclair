@@ -40,7 +40,7 @@ def OPC_LDI16   : ECLairOpcode<0b00001010>;
 def OPC_LDI8L   : ECLairOpcode<0b00001001>;
 def OPC_LDI8H   : ECLairOpcode<0b00001011>;
 def OPC_LDI16SP : ECLairOpcode<0b00100111>;
-def OPC_LDI16DP : ECLairOpcode<0b00101100>;
+def OPC_LDI16DP : ECLairOpcode<0b01101100>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
