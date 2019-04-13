@@ -39,12 +39,20 @@ let Namespace = "ECLair" in {
   def SP : ECLairReg<9, "sp">;
   def DP : ECLairReg<10, "dp">;
 
+  def FLAGS : ECLairReg<11, "flags">;
+  def PTB   : ECLairReg<12, "ptb">;
+
   let SubRegIndices = [subreg_8bit_lo, subreg_8bit_hi] in {    
     def A : ECLairRegWithSubregs<0, "a", [AL, AH]>;
     def B : ECLairRegWithSubregs<1, "b", [BL, BH]>;
     def C : ECLairRegWithSubregs<2, "c", [CL, CH]>;
     def D : ECLairRegWithSubregs<3, "d", [DL, DH]>;
   }
+  
+  // TODO: Set up STATUS/FLAGS properly as two halves of an i16 reg
+  def HalfWidthFlags : RegisterClass<"ECLair", [i8], 8, (add FLAGS)>;
+
+  def HalfWidthPTB : RegisterClass<"ECLair", [i8], 8, (add PTB)>;
 
   def FullWidthSP : RegisterClass<"ECLair", [i16], 16, (add SP)>;
 

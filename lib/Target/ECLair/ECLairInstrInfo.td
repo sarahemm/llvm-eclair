@@ -93,6 +93,14 @@ class SPRegImmWord<ECLairOpcode opcode, string opcodestr>
     : ECLairInstFixedRegImmWord<opcode, (outs FullWidthSP:$rd), (ins FullWidthSP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class FlagsImmByte<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstFixedRegImmByte<opcode, (outs HalfWidthFlags:$rd), (ins HalfWidthFlags:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class PTBImmByte<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstFixedRegImmByte<opcode, (outs HalfWidthPTB:$rd), (ins HalfWidthPTB:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class DPRegImmWord<ECLairOpcode opcode, string opcodestr>
     : ECLairInstFixedRegImmWord<opcode, (outs FullWidthDP:$rd), (ins FullWidthDP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
 
@@ -112,10 +120,12 @@ class FullRegImmByte<ECLairOpcode opcode, string opcodestr>
 // Instructions
 //===----------------------------------------------------------------------===//
 
-def HALT  : Basic<OPC_HALT, "halt"> {}
-def CIR   : Basic<OPC_CIR,  "cir"> {}
-def EI    : Basic<OPC_EI,   "ei"> {}
-def DI    : Basic<OPC_DI,   "di"> {}
+def HALT  : Basic<OPC_HALT,  "halt"> {}
+def CIR   : Basic<OPC_CIR,   "cir"> {}
+def EI    : Basic<OPC_EI,    "ei"> {}
+def DI    : Basic<OPC_DI,    "di"> {}
+def WRPTE : Basic<OPC_WRPTE, "wrpte"> {}
+def WRCSE : Basic<OPC_WRCSE, "wrcse"> {}
  
 def ADD16 : FullRegFullReg<OPC_ADD16, "add"> {}
 def ADD8L : HalfRegLowHalfRegLow<OPC_ADD8L, "add"> {}
@@ -136,11 +146,13 @@ def INV8H : HalfRegHigh<OPC_INV8H, "inv"> {}
 def SWAB  : FullReg<OPC_SWAB, "swab"> {}
 def SEX   : FullReg<OPC_SEX,  "sex"> {}
 
-def LDI16 : FullRegImmWord<OPC_LDI16, "ldi"> {}
-def LDI16SP : SPRegImmWord<OPC_LDI16SP, "ldi"> {}
-def LDI16DP : DPRegImmWord<OPC_LDI16DP, "ldi"> {}
-def LDI8L : HalfRegLowImmByte<OPC_LDI8L, "ldi"> {}
-def LDI8H : HalfRegHighImmByte<OPC_LDI8H, "ldi"> {}
+def LDI16    : FullRegImmWord<OPC_LDI16, "ldi"> {}
+def LDI16SP  : SPRegImmWord<OPC_LDI16SP, "ldi"> {}
+def LDI16DP  : DPRegImmWord<OPC_LDI16DP, "ldi"> {}
+def LDI8L    : HalfRegLowImmByte<OPC_LDI8L, "ldi"> {}
+def LDI8H    : HalfRegHighImmByte<OPC_LDI8H, "ldi"> {}
+def LDIFLAGS : FlagsImmByte<OPC_LDIFLAGS, "ldi"> {}
+def LDIPTB   : PTBImmByte<OPC_LDIPTB, "ldi"> {}
 
 def JMPE : ImmWord<OPC_JMPE, "jmpe"> {}
 def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}

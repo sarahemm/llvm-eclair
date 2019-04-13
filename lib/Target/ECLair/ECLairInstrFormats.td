@@ -24,6 +24,8 @@ def OPC_HALT    : ECLairOpcode<0b11111110>;
 def OPC_CIR     : ECLairOpcode<0b10101111>;
 def OPC_EI      : ECLairOpcode<0b00010111>;
 def OPC_DI      : ECLairOpcode<0b01000010>;
+def OPC_WRPTE   : ECLairOpcode<0b01100111>;
+def OPC_WRCSE   : ECLairOpcode<0b01011010>;
 
 def OPC_ADD16   : ECLairOpcode<0b00010000>;
 def OPC_ADD8L   : ECLairOpcode<0b00011000>;
@@ -47,11 +49,13 @@ def OPC_SEX     : ECLairOpcode<0b00110011>;
 def OPC_JMPE    : ECLairOpcode<0b11101111>;
 def OPC_JMPNE   : ECLairOpcode<0b11110011>;
 
-def OPC_LDI16   : ECLairOpcode<0b00001010>;
-def OPC_LDI8L   : ECLairOpcode<0b00001001>;
-def OPC_LDI8H   : ECLairOpcode<0b00001011>;
-def OPC_LDI16SP : ECLairOpcode<0b00100111>;
-def OPC_LDI16DP : ECLairOpcode<0b01101100>;
+def OPC_LDI16    : ECLairOpcode<0b00001010>;
+def OPC_LDI8L    : ECLairOpcode<0b00001001>;
+def OPC_LDI8H    : ECLairOpcode<0b00001011>;
+def OPC_LDI16SP  : ECLairOpcode<0b00100111>;
+def OPC_LDI16DP  : ECLairOpcode<0b01101100>;
+def OPC_LDIFLAGS : ECLairOpcode<0b00100001>;
+def OPC_LDIPTB   : ECLairOpcode<0b01000001>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
@@ -156,6 +160,15 @@ class ECLairInstFixedRegImmWord<ECLairOpcode opcode, dag outs, dag ins, string o
   let Opcode = opcode.Value;
   let Inst{23-16} = opcode.Value{7-0};
   let Inst{15-0} = imm;
+}
+
+class ECLairInstFixedRegImmByte<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
+    : ECLairInst16<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+  bits<8> imm;
+  
+  let Opcode = opcode.Value;
+  let Inst{15-8} = opcode.Value{7-0};
+  let Inst{7-0} = imm;
 }
 
 class ECLairInstRegImmByte<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
