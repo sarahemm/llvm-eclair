@@ -154,6 +154,8 @@ def INV8H : HalfRegHigh<OPC_INV8H, "inv"> {}
 def SWAB  : FullReg<OPC_SWAB, "swab"> {}
 def SEX   : FullReg<OPC_SEX,  "sex"> {}
 
+def CMP16 : FullRegFullReg<OPC_CMP16, "cmp"> {}
+
 def LDI16    : FullRegImmWord<OPC_LDI16, "ldi"> {}
 def LDI16SP  : SPRegImmWord<OPC_LDI16SP, "ldi"> {}
 def LDI16DP  : DPRegImmWord<OPC_LDI16DP, "ldi"> {}
@@ -169,3 +171,5 @@ def ST8H     : HalfRegHighImmWord<OPC_ST8H, "st"> {}
 def JMP   : ImmWord<OPC_JMP, "jmp"> {}
 def JMPE  : ImmWord<OPC_JMPE, "jmpe"> {}
 def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}
+def JMPZ  : ImmWord<OPC_JMPZ, "jmpz"> {}
+def JMPNZ : ImmWord<OPC_JMPNZ, "jmpnz"> {}

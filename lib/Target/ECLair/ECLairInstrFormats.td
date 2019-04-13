@@ -46,9 +46,13 @@ def OPC_INV8H   : ECLairOpcode<0b00110111>;
 def OPC_SWAB    : ECLairOpcode<0b00100101>;
 def OPC_SEX     : ECLairOpcode<0b00110011>;
 
+def OPC_CMP16   : ECLairOpcode<0b00100110>;
+
 def OPC_JMP     : ECLairOpcode<0b01000101>;
 def OPC_JMPE    : ECLairOpcode<0b11101111>;
-def OPC_JMPNE   : ECLairOpcode<0b11110011>;
+def OPC_JMPNE   : ECLairOpcode<0b11011010>;
+def OPC_JMPZ    : ECLairOpcode<0b00011011>;
+def OPC_JMPNZ   : ECLairOpcode<0b01111100>;
 
 def OPC_LDI16    : ECLairOpcode<0b00001010>;
 def OPC_LDI8L    : ECLairOpcode<0b00001001>;
