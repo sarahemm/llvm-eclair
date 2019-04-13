@@ -81,6 +81,14 @@ class FullRegImmWord<ECLairOpcode opcode, string opcodestr>
     : ECLairInstRegImmWord<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class SPRegImmWord<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstFixedRegImmWord<opcode, (outs FullWidthSP:$rd), (ins FullWidthSP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class DPRegImmWord<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstFixedRegImmWord<opcode, (outs FullWidthDP:$rd), (ins FullWidthDP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLowImmByte<ECLairOpcode opcode, string opcodestr>
     : ECLairInstRegImmByte<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
 
@@ -110,6 +118,8 @@ def INV8L : HalfRegLow<OPC_INV8L, "inv"> {}
 def INV8H : HalfRegHigh<OPC_INV8H, "inv"> {}
 
 def LDI16 : FullRegImmWord<OPC_LDI16, "ldi"> {}
+def LDI16SP : SPRegImmWord<OPC_LDI16SP, "ldi"> {}
+def LDI16DP : DPRegImmWord<OPC_LDI16DP, "ldi"> {}
 def LDI8L : HalfRegLowImmByte<OPC_LDI8L, "ldi"> {}
 def LDI8H : HalfRegHighImmByte<OPC_LDI8H, "ldi"> {}
 

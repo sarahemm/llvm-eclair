@@ -39,6 +39,8 @@ def OPC_JMPNE   : ECLairOpcode<0b11110011>;
 def OPC_LDI16   : ECLairOpcode<0b00001010>;
 def OPC_LDI8L   : ECLairOpcode<0b00001001>;
 def OPC_LDI8H   : ECLairOpcode<0b00001011>;
+def OPC_LDI16SP : ECLairOpcode<0b00100111>;
+def OPC_LDI16DP : ECLairOpcode<0b00101100>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
@@ -124,6 +126,7 @@ class ECLairInstTwoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr
   let Inst{7-2} = 0;
 }
 
+// TODO: see if we can collapse FixedReg and Reg together
 class ECLairInstRegImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
     : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
   bits<4> rd;
@@ -132,6 +135,15 @@ class ECLairInstRegImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcode
   let Opcode = opcode.Value;
   let Inst{23-22} = rd{1-0};
   let Inst{21-16} = opcode.Value{5-0};
+  let Inst{15-0} = imm;
+}
+
+class ECLairInstFixedRegImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
+    : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+  bits<16> imm;
+  
+  let Opcode = opcode.Value;
+  let Inst{23-16} = opcode.Value{7-0};
   let Inst{15-0} = imm;
 }
 

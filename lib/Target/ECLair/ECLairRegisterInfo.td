@@ -37,6 +37,7 @@ let Namespace = "ECLair" in {
   def DH : ECLairReg<3, "dh">;
 
   def SP : ECLairReg<9, "sp">;
+  def DP : ECLairReg<10, "dp">;
 
   let SubRegIndices = [subreg_8bit_lo, subreg_8bit_hi] in {    
     def A : ECLairRegWithSubregs<0, "a", [AL, AH]>;
@@ -44,6 +45,10 @@ let Namespace = "ECLair" in {
     def C : ECLairRegWithSubregs<2, "c", [CL, CH]>;
     def D : ECLairRegWithSubregs<3, "d", [DL, DH]>;
   }
+
+  def FullWidthSP : RegisterClass<"ECLair", [i16], 16, (add SP)>;
+
+  def FullWidthDP : RegisterClass<"ECLair", [i16], 16, (add DP)>;
 
   def FullWidth : RegisterClass<"ECLair", [i16], 16, (add A, B, C, D, SP)>;
   def HalfWidth : RegisterClass<"ECLair", [i8],  8,  (add AL, AH, BL, BH, CL, CH, DL, DH)>;
