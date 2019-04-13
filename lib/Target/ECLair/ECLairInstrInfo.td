@@ -110,8 +110,14 @@ def EI    : Basic<OPC_EI,   "ei"> {}
 def DI    : Basic<OPC_DI,   "di"> {}
  
 def ADD16 : FullRegFullReg<OPC_ADD16, "add"> {}
+
 def SHL16 : FullRegImmByte<OPC_SHL16, "shl"> {}
+def SHL8L : HalfRegLowImmByte<OPC_SHL8L, "shl"> {}
+def SHL8H : HalfRegHighImmByte<OPC_SHL8H, "shl"> {}
+
 def SHR16 : FullRegImmByte<OPC_SHR16, "shr"> {}
+def SHR8L : HalfRegLowImmByte<OPC_SHR8L, "shr"> {}
+def SHR8H : HalfRegHighImmByte<OPC_SHR8H, "shr"> {}
 
 def INV16 : FullReg<OPC_INV16, "inv"> {}
 def INV8L : HalfRegLow<OPC_INV8L, "inv"> {}
