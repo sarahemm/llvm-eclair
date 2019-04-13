@@ -22,6 +22,8 @@ class ECLairOpcode<bits<8> val> {
 
 def OPC_HALT    : ECLairOpcode<0b11111110>;
 def OPC_CIR     : ECLairOpcode<0b10101111>;
+def OPC_EI      : ECLairOpcode<0b00010111>;
+def OPC_DI      : ECLairOpcode<0b01000010>;
 
 def OPC_ADD16   : ECLairOpcode<0b00010000>;
 def OPC_SHL16   : ECLairOpcode<0b00001100>;

@@ -96,9 +96,11 @@ class FullRegImmByte<ECLairOpcode opcode, string opcodestr>
 // Instructions
 //===----------------------------------------------------------------------===//
 
-def HALT : Basic<OPC_HALT, "halt"> {}
-def CIR : Basic<OPC_CIR, "cir"> {}
-
+def HALT  : Basic<OPC_HALT, "halt"> {}
+def CIR   : Basic<OPC_CIR,  "cir"> {}
+def EI    : Basic<OPC_EI,   "ei"> {}
+def DI    : Basic<OPC_DI,   "di"> {}
+ 
 def ADD16 : FullRegFullReg<OPC_ADD16, "add"> {}
 def SHL16 : FullRegImmByte<OPC_SHL16, "shl"> {}
 def SHR16 : FullRegImmByte<OPC_SHR16, "shr"> {}
