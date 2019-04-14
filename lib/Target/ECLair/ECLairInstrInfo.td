@@ -104,6 +104,11 @@ let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class DPRegImmWord<ECLairOpcode opcode, string opcodestr>
     : ECLairInstFixedRegImmWord<opcode, (outs FullWidthDP:$rd), (ins FullWidthDP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
 
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class PCOnly<ECLairOpcode opcode, string opcodestr>
+    : ECLairInstNoReg<opcode, (outs FullWidthPC:$rd), (ins FullWidthPC:$src), opcodestr, "$rd">;
+
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLowImmByte<ECLairOpcode opcode, string opcodestr>
     : ECLairInstRegImmByte<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
@@ -172,8 +177,12 @@ def ST16     : FullRegImmWord<OPC_ST16, "st"> {}
 def ST8L     : HalfRegLowImmWord<OPC_ST8L, "st"> {}
 def ST8H     : HalfRegHighImmWord<OPC_ST8H, "st"> {}
 
-def JMP   : ImmWord<OPC_JMP, "jmp"> {}
-def JMPE  : ImmWord<OPC_JMPE, "jmpe"> {}
+def JMP   : ImmWord<OPC_JMP,   "jmp"> {}
+def JMPE  : ImmWord<OPC_JMPE,  "jmpe"> {}
 def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}
-def JMPZ  : ImmWord<OPC_JMPZ, "jmpz"> {}
+def JMPZ  : ImmWord<OPC_JMPZ,  "jmpz"> {}
 def JMPNZ : ImmWord<OPC_JMPNZ, "jmpnz"> {}
+def CALL  : ImmWord<OPC_CALL,  "call"> {}
+
+def PUSH16I : ImmWord<OPC_PUSH16I, "push16i"> {}
+def POPPC   : PCOnly<OPC_POPPC, "pop"> {}

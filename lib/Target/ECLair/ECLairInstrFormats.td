@@ -53,6 +53,7 @@ def OPC_JMPE    : ECLairOpcode<0b11000101>;
 def OPC_JMPNE   : ECLairOpcode<0b11011010>;
 def OPC_JMPZ    : ECLairOpcode<0b00011011>;
 def OPC_JMPNZ   : ECLairOpcode<0b01111100>;
+def OPC_CALL    : ECLairOpcode<0b10011010>;
 
 def OPC_LDI16    : ECLairOpcode<0b00001010>;
 def OPC_LDI8L    : ECLairOpcode<0b00001001>;
@@ -69,6 +70,9 @@ def OPC_ST8H     : ECLairOpcode<0b00001110>;
 def OPC_LD16     : ECLairOpcode<0b00101110>;
 def OPC_LD8L     : ECLairOpcode<0b00101111>;
 def OPC_LD8H     : ECLairOpcode<0b00110000>;
+
+def OPC_PUSH16I  : ECLairOpcode<0b00101100>;
+def OPC_POPPC    : ECLairOpcode<0b01011100>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>

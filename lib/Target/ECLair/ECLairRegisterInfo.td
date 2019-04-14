@@ -41,6 +41,9 @@ let Namespace = "ECLair" in {
 
   def FLAGS : ECLairReg<11, "flags">;
   def PTB   : ECLairReg<12, "ptb">;
+  
+  // TODO: should this be a normal register or something special?
+  def PC    : ECLairReg<13, "pc">;
 
   let SubRegIndices = [subreg_8bit_lo, subreg_8bit_hi] in {    
     def A : ECLairRegWithSubregs<0, "a", [AL, AH]>;
@@ -51,6 +54,8 @@ let Namespace = "ECLair" in {
   
   // TODO: Set up STATUS/FLAGS properly as two halves of an i16 reg
   def HalfWidthFlags : RegisterClass<"ECLair", [i8], 8, (add FLAGS)>;
+
+  def FullWidthPC : RegisterClass<"ECLair", [i16], 16, (add PC)>;
 
   def HalfWidthPTB : RegisterClass<"ECLair", [i8], 8, (add PTB)>;
 
