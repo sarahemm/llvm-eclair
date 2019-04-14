@@ -164,6 +164,10 @@ def LDI8H    : HalfRegHighImmByte<OPC_LDI8H, "ldi"> {}
 def LDIFLAGS : FlagsImmByte<OPC_LDIFLAGS, "ldi"> {}
 def LDIPTB   : PTBImmByte<OPC_LDIPTB, "ldi"> {}
 
+def LD16     : FullRegImmWord<OPC_LD16, "ld"> {}
+def LD8L     : HalfRegLowImmWord<OPC_LD8L, "ld"> {}
+def LD8H     : HalfRegHighImmWord<OPC_LD8H, "ld"> {}
+
 def ST16     : FullRegImmWord<OPC_ST16, "st"> {}
 def ST8L     : HalfRegLowImmWord<OPC_ST8L, "st"> {}
 def ST8H     : HalfRegHighImmWord<OPC_ST8H, "st"> {}
