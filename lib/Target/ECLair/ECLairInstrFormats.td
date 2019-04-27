@@ -76,6 +76,7 @@ def OPC_LD8L     : ECLairOpcode<0b00101111>;
 def OPC_LD8H     : ECLairOpcode<0b00110000>;
 
 def OPC_PUSH16I  : ECLairOpcode<0b00101100>;
+def OPC_PUSH8I   : ECLairOpcode<0b00011111>;
 def OPC_POPPC    : ECLairOpcode<0b01011100>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
@@ -204,6 +205,15 @@ class ECLairInstRegImmByte<ECLairOpcode opcode, dag outs, dag ins, string opcode
 }
 
 
+class ECLairInstImmByte<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
+    : ECLairInst16<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+      bits<8> imm;
+
+      let Opcode = opcode.Value;
+      let Inst{15-8} = opcode.Value{7-0};
+      let Inst{7-0} = imm;
+}
+
 class ECLairInstImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
     : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
       bits<16> imm;
@@ -212,4 +222,3 @@ class ECLairInstImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr
       let Inst{23-16} = opcode.Value{7-0};
       let Inst{15-0} = imm;
 }
-

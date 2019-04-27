@@ -81,6 +81,10 @@ class HalfRegHigh<ECLairOpcode opcode, string opcodestr>
     : ECLairInstOneReg<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src), opcodestr, "$rd">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class ImmByte<ECLairOpcode opcode, string opcodestr>
+      : ECLairInstImmByte<opcode, (outs), (ins uimm8:$imm), opcodestr, "$imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class ImmWord<ECLairOpcode opcode, string opcodestr>
       : ECLairInstImmWord<opcode, (outs), (ins uimm16:$imm), opcodestr, "$imm">;
 
@@ -189,4 +193,5 @@ def JMPNZ : ImmWord<OPC_JMPNZ, "jmpnz"> {}
 def CALL  : ImmWord<OPC_CALL,  "call"> {}
 
 def PUSH16I : ImmWord<OPC_PUSH16I, "push16i"> {}
+def PUSH8I  : ImmByte<OPC_PUSH8I, "push8i"> {}
 def POPPC   : PCOnly<OPC_POPPC, "pop"> {}
