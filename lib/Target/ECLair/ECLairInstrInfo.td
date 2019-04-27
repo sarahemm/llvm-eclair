@@ -139,10 +139,14 @@ def EI    : Basic<OPC_EI,    "ei"> {}
 def DI    : Basic<OPC_DI,    "di"> {}
 def WRPTE : Basic<OPC_WRPTE, "wrpte"> {}
 def WRCSE : Basic<OPC_WRCSE, "wrcse"> {}
- 
+
 def ADD16 : FullRegFullReg<OPC_ADD16, "add"> {}
 def ADD8L : HalfRegLowHalfRegLow<OPC_ADD8L, "add"> {}
 def ADD8H : HalfRegHighHalfRegHigh<OPC_ADD8H, "add"> {}
+
+//def SUB16 : FullRegFullReg<OPC_SUB16, "sub"> {}
+def SUB8L : HalfRegLowHalfRegLow<OPC_SUB8L, "sub"> {}
+def SUB8H : HalfRegHighHalfRegHigh<OPC_SUB8H, "sub"> {}
 
 def SHL16 : FullRegImmByte<OPC_SHL16, "shl"> {}
 def SHL8L : HalfRegLowImmByte<OPC_SHL8L, "shl"> {}

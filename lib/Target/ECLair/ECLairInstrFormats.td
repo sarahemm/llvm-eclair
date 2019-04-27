@@ -31,6 +31,10 @@ def OPC_ADD16   : ECLairOpcode<0b00010000>;
 def OPC_ADD8L   : ECLairOpcode<0b00011000>;
 def OPC_ADD8H   : ECLairOpcode<0b00011001>;
 
+//def OPC_SUB16   : ECLairOpcode<TBD>;
+def OPC_SUB8L   : ECLairOpcode<0b00010001>;
+def OPC_SUB8H   : ECLairOpcode<0b00010010>;
+
 def OPC_SHL16   : ECLairOpcode<0b00001100>;
 def OPC_SHL8L   : ECLairOpcode<0b00010011>;
 def OPC_SHL8H   : ECLairOpcode<0b00010100>;
