@@ -77,6 +77,7 @@ def OPC_LD8H     : ECLairOpcode<0b00110000>;
 
 def OPC_PUSH16I  : ECLairOpcode<0b00101100>;
 def OPC_PUSH8I   : ECLairOpcode<0b00011111>;
+def OPC_PUSHPC   : ECLairOpcode<0b01000011>;
 def OPC_POPPC    : ECLairOpcode<0b01011100>;
 
 class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,

@@ -194,4 +194,6 @@ def CALL  : ImmWord<OPC_CALL,  "call"> {}
 
 def PUSH16I : ImmWord<OPC_PUSH16I, "push16i"> {}
 def PUSH8I  : ImmByte<OPC_PUSH8I, "push8i"> {}
+def PUSHPC  : PCOnly<OPC_PUSHPC, "push"> {}
 def POPPC   : PCOnly<OPC_POPPC, "pop"> {}
+def RET     : Basic<OPC_POPPC, "ret"> {}
