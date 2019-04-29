@@ -54,7 +54,7 @@ def OPC_CMP16   : ECLairOpcode<0b00100110>;
 
 def OPC_JMP     : ECLairOpcode<0b01000101>;
 def OPC_JMPE    : ECLairOpcode<0b11000101>;
-def OPC_JMPNE   : ECLairOpcode<0b11011010>;
+def OPC_JMPNE   : ECLairOpcode<0b10111100>;
 def OPC_JMPZ    : ECLairOpcode<0b10000000>;
 def OPC_JMPNZ   : ECLairOpcode<0b01111100>;
 def OPC_CALL    : ECLairOpcode<0b00111100>;
@@ -67,9 +67,9 @@ def OPC_LDI16DP  : ECLairOpcode<0b10000100>;
 def OPC_LDIFLAGS : ECLairOpcode<0b00111110>;
 def OPC_LDIPTB   : ECLairOpcode<0b01000001>;
 
-def OPC_ST16     : ECLairOpcode<0b00111011>;
-def OPC_ST8L     : ECLairOpcode<0b00001101>;
-def OPC_ST8H     : ECLairOpcode<0b00001110>;
+def OPC_ST16     : ECLairOpcode<0b00101011>;
+def OPC_ST8L     : ECLairOpcode<0b00101100>;
+def OPC_ST8H     : ECLairOpcode<0b00101101>;
 
 def OPC_LD16     : ECLairOpcode<0b00101110>;
 def OPC_LD8L     : ECLairOpcode<0b00101111>;
