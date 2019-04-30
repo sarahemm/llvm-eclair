@@ -47,6 +47,18 @@ def OPC_INV16   : ECLairOpcode<0b00110101>;
 def OPC_INV8L   : ECLairOpcode<0b00110110>;
 def OPC_INV8H   : ECLairOpcode<0b00110111>;
 
+def OPC_AND16   : ECLairOpcode<0b00011010>;
+def OPC_AND8L   : ECLairOpcode<0b00011011>;
+def OPC_AND8H   : ECLairOpcode<0b00011100>;
+
+def OPC_OR16    : ECLairOpcode<0b00011101>;
+def OPC_OR8L    : ECLairOpcode<0b00011110>;
+def OPC_OR8H    : ECLairOpcode<0b00011111>;
+
+def OPC_XOR16   : ECLairOpcode<0b00100000>;
+def OPC_XOR8L   : ECLairOpcode<0b00100001>;
+def OPC_XOR8H   : ECLairOpcode<0b00100010>;
+
 def OPC_SWAB    : ECLairOpcode<0b00100101>;
 def OPC_SEX     : ECLairOpcode<0b00110011>;
 

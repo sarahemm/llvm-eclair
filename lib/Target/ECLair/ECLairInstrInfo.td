@@ -164,6 +164,18 @@ def INV16 : FullReg<OPC_INV16, "inv"> {}
 def INV8L : HalfRegLow<OPC_INV8L, "inv"> {}
 def INV8H : HalfRegHigh<OPC_INV8H, "inv"> {}
 
+def AND16 : FullRegFullReg<OPC_AND16, "and"> {}
+def AND8L : HalfRegLowHalfRegLow<OPC_AND8L, "and"> {}
+def AND8H : HalfRegHighHalfRegHigh<OPC_AND8H, "and"> {}
+
+def OR16  : FullRegFullReg<OPC_OR16, "or"> {}
+def OR8L  : HalfRegLowHalfRegLow<OPC_OR8L, "or"> {}
+def OR8H  : HalfRegHighHalfRegHigh<OPC_OR8H, "or"> {}
+
+def XOR16 : FullRegFullReg<OPC_XOR16, "xor"> {}
+def XOR8L : HalfRegLowHalfRegLow<OPC_XOR8L, "xor"> {}
+def XOR8H : HalfRegHighHalfRegHigh<OPC_XOR8H, "xor"> {}
+
 def SWAB  : FullReg<OPC_SWAB, "swab"> {}
 def SEX   : FullReg<OPC_SEX,  "sex"> {}
 
