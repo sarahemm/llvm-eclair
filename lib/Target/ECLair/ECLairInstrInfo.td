@@ -202,6 +202,8 @@ def JMPE  : ImmWord<OPC_JMPE,  "jmpe"> {}
 def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}
 def JMPZ  : ImmWord<OPC_JMPZ,  "jmpz"> {}
 def JMPNZ : ImmWord<OPC_JMPNZ, "jmpnz"> {}
+def JMPO  : ImmWord<OPC_JMPO,  "jmpo"> {}
+def JMPNO : ImmWord<OPC_JMPNO, "jmpno"> {}
 def CALL  : ImmWord<OPC_CALL,  "call"> {}
 
 def PUSH16I : ImmWord<OPC_PUSH16I, "push16i"> {}

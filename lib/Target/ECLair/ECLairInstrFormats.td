@@ -69,6 +69,8 @@ def OPC_JMPE    : ECLairOpcode<0b11000101>;
 def OPC_JMPNE   : ECLairOpcode<0b10111100>;
 def OPC_JMPZ    : ECLairOpcode<0b10000000>;
 def OPC_JMPNZ   : ECLairOpcode<0b01111100>;
+def OPC_JMPO    : ECLairOpcode<0b00111011>;
+def OPC_JMPNO   : ECLairOpcode<0b01111011>;
 def OPC_CALL    : ECLairOpcode<0b00111100>;
 
 def OPC_LDI16    : ECLairOpcode<0b00001010>;
