@@ -180,6 +180,8 @@ def SWAB  : FullReg<OPC_SWAB, "swab"> {}
 def SEX   : FullReg<OPC_SEX,  "sex"> {}
 
 def CMP16 : FullRegFullReg<OPC_CMP16, "cmp"> {}
+def CMP8L : HalfRegLowHalfRegLow<OPC_CMP8L, "cmp"> {}
+def CMP8H : HalfRegHighHalfRegHigh<OPC_CMP8H, "cmp"> {}
 
 def LDI16    : FullRegImmWord<OPC_LDI16, "ldi"> {}
 def LDI16SP  : SPRegImmWord<OPC_LDI16SP, "ldi"> {}
@@ -205,6 +207,7 @@ def JMPNZ : ImmWord<OPC_JMPNZ, "jmpnz"> {}
 def JMPO  : ImmWord<OPC_JMPO,  "jmpo"> {}
 def JMPNO : ImmWord<OPC_JMPNO, "jmpno"> {}
 def CALL  : ImmWord<OPC_CALL,  "call"> {}
+def RETI  : Basic<OPC_RETI,    "reti"> {}
 
 def PUSH16I : ImmWord<OPC_PUSH16I, "push16i"> {}
 def PUSH8I  : ImmByte<OPC_PUSH8I, "push8i"> {}
