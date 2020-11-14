@@ -216,5 +216,6 @@ def PUSH16  : FullReg<OPC_PUSH16, "push"> {}
 def PUSH8L  : HalfRegLow<OPC_PUSH8L, "push"> {}
 def PUSH8H  : HalfRegHigh<OPC_PUSH8H, "push"> {}
 def POP16   : FullReg<OPC_POP16, "pop"> {}
+def POP8L   : HalfRegLow<OPC_POP8L, "pop"> {}
 def POPPC   : PCOnly<OPC_POPPC, "pop"> {}
 def RET     : Basic<OPC_POPPC, "ret"> {}
