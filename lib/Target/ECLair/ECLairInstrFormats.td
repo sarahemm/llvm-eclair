@@ -92,6 +92,7 @@ def OPC_LD16     : ECLairOpcode<0b00101110>;
 def OPC_LD8L     : ECLairOpcode<0b00101111>;
 def OPC_LD8H     : ECLairOpcode<0b00110000>;
 
+def OPC_PUSH16   : ECLairOpcode<0b00110100>;
 def OPC_PUSH16I  : ECLairOpcode<0b10000111>;
 def OPC_PUSH8I   : ECLairOpcode<0b01000000>;
 def OPC_PUSHPC   : ECLairOpcode<0b01000011>;
