@@ -214,6 +214,7 @@ def PUSH8I  : ImmByte<OPC_PUSH8I, "push8i"> {}
 def PUSHPC  : PCOnly<OPC_PUSHPC, "push"> {}
 def PUSH16  : FullReg<OPC_PUSH16, "push"> {}
 def PUSH8L  : HalfRegLow<OPC_PUSH8L, "push"> {}
+def PUSH8H  : HalfRegHigh<OPC_PUSH8H, "push"> {}
 def POP16   : FullReg<OPC_POP16, "pop"> {}
 def POPPC   : PCOnly<OPC_POPPC, "pop"> {}
 def RET     : Basic<OPC_POPPC, "ret"> {}
