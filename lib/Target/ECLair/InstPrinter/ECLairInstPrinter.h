@@ -14,7 +14,7 @@
 #ifndef LLVM_LIB_TARGET_ECLAIR_INSTPRINTER_ECLAIRINSTPRINTER_H
 #define LLVM_LIB_TARGET_ECLAIR_INSTPRINTER_ECLAIRINSTPRINTER_H
 
-#include "MCTargetDesc/ECLAIRMCTargetDesc.h"
+#include "MCTargetDesc/ECLairMCTargetDesc.h"
 #include "llvm/MC/MCInstPrinter.h"
 
 namespace llvm {
