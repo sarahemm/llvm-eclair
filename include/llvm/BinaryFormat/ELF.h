@@ -374,7 +374,7 @@ enum {
 
 // ECLair relocations.
 enum {
-#include "ELFRelocs/eclair.def"
+#include "ELFRelocs/ECLair.def"
 };
 
 // ELF Relocation types for PPC32
