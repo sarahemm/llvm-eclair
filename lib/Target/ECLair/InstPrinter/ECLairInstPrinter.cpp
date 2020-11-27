@@ -46,7 +46,7 @@ void ECLairInstPrinter::printOperand(const MCInst *MI, unsigned OpNo,
   }
 
   if (MO.isImm()) {
-    O << MO.getImm();
+    O << formatImm(MO.getImm());
     return;
   }
 
