@@ -33,18 +33,22 @@ class UImmAsmOperand<int width>
 
 def simm8 : Operand<i8> {
   let ParserMatchClass = SImmAsmOperand<8>;
+  let DecoderMethod = "decodeSImmOperand<8>";
 }
 
 def uimm8 : Operand<i8> {
   let ParserMatchClass = UImmAsmOperand<8>;
+  let DecoderMethod = "decodeUImmOperand<8>";
 }
 
 def simm16 : Operand<i16> {
   let ParserMatchClass = SImmAsmOperand<16>;
+  let DecoderMethod = "decodeSImmOperand<16>";
 }
 
 def uimm16 : Operand<i16> {
   let ParserMatchClass = UImmAsmOperand<16>;
+  let DecoderMethod = "decodeUImmOperand<16>";
 }
 
 //===----------------------------------------------------------------------===//
@@ -57,28 +61,28 @@ class Basic<ECLairOpcode opcode, string opcodestr>
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class FullRegFullReg<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstTwoReg<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, FullWidth:$rs2),
+    : ECLairInstTwoReg<opcode, (outs), (ins FullWidth:$rd, FullWidth:$rs2),
                 opcodestr, "$rd, $rs2">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLowHalfRegLow<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstTwoReg<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src, HalfWidthLow:$rs2), opcodestr, "$rd, $rs2">;
+    : ECLairInstTwoReg<opcode, (outs), (ins HalfWidthLow:$rd, HalfWidthLow:$rs2), opcodestr, "$rd, $rs2">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegHighHalfRegHigh<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstTwoReg<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src, HalfWidthHigh:$rs2), opcodestr, "$rd, $rs2">;
+    : ECLairInstTwoReg<opcode, (outs), (ins HalfWidthHigh:$rd, HalfWidthHigh:$rs2), opcodestr, "$rd, $rs2">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class FullReg<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstOneReg<opcode, (outs FullWidth:$rd), (ins FullWidth:$src), opcodestr, "$rd">;
+    : ECLairInstOneReg<opcode, (outs), (ins FullWidth:$rd), opcodestr, "$rd">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLow<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstOneReg<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src), opcodestr, "$rd">;
+    : ECLairInstOneReg<opcode, (outs), (ins HalfWidthLow:$rd), opcodestr, "$rd">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegHigh<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstOneReg<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src), opcodestr, "$rd">;
+    : ECLairInstOneReg<opcode, (outs), (ins HalfWidthHigh:$rd), opcodestr, "$rd">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class ImmByte<ECLairOpcode opcode, string opcodestr>
@@ -90,48 +94,48 @@ class ImmWord<ECLairOpcode opcode, string opcodestr>
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class FullRegImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstRegImmWord<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstRegImmWord<opcode, (outs), (ins FullWidth:$rd, uimm16:$imm), opcodestr, "$rd, $imm">;
 
-let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, Defs = [SP] in
 class SPRegImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstFixedRegImmWord<opcode, (outs FullWidthSP:$rd), (ins FullWidthSP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstFixedRegImmWord<opcode, (outs), (ins uimm16:$imm), opcodestr, "sp, $imm">;
 
-let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, Defs = [FLAGS] in
 class FlagsImmByte<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstFixedRegImmByte<opcode, (outs HalfWidthFlags:$rd), (ins HalfWidthFlags:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstFixedRegImmByte<opcode, (outs), (ins uimm8:$imm), opcodestr, "flags, $imm">;
 
-let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, Defs = [PTB] in
 class PTBImmByte<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstFixedRegImmByte<opcode, (outs HalfWidthPTB:$rd), (ins HalfWidthPTB:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstFixedRegImmByte<opcode, (outs), (ins uimm8:$imm), opcodestr, "ptb, $imm">;
 
-let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, Defs = [DP] in
 class DPRegImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstFixedRegImmWord<opcode, (outs FullWidthDP:$rd), (ins FullWidthDP:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstFixedRegImmWord<opcode, (outs), (ins uimm16:$imm), opcodestr, "dp, $imm">;
 
 
-let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, Defs = [PC] in
 class PCOnly<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstNoReg<opcode, (outs FullWidthPC:$rd), (ins FullWidthPC:$src), opcodestr, "$rd">;
+    : ECLairInstNoReg<opcode, (outs), (ins), opcodestr, "pc">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLowImmByte<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstRegImmByte<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstRegImmByte<opcode, (outs), (ins HalfWidthLow:$rd, uimm8:$imm), opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegHighImmByte<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstRegImmByte<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstRegImmByte<opcode, (outs), (ins HalfWidthHigh:$rd, uimm8:$imm), opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegLowImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstRegImmWord<opcode, (outs HalfWidthLow:$rd), (ins HalfWidthLow:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstRegImmWord<opcode, (outs), (ins HalfWidthLow:$rd, uimm16:$imm), opcodestr, "$rd, $imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class HalfRegHighImmWord<ECLairOpcode opcode, string opcodestr>
-    : ECLairInstRegImmWord<opcode, (outs HalfWidthHigh:$rd), (ins HalfWidthHigh:$src, uimm16:$imm), opcodestr, "$rd, $imm">;
+    : ECLairInstRegImmWord<opcode, (outs), (ins HalfWidthHigh:$rd, uimm16:$imm), opcodestr, "$rd, $imm">;
       
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class FullRegImmByte<ECLairOpcode opcode, string opcodestr>
-      : ECLairInstRegImmByte<opcode, (outs FullWidth:$rd), (ins FullWidth:$src, uimm8:$imm), opcodestr, "$rd, $imm">;
+      : ECLairInstRegImmByte<opcode, (outs), (ins FullWidth:$rd, uimm8:$imm), opcodestr, "$rd, $imm">;
 
 //===----------------------------------------------------------------------===//
 // Instructions
@@ -218,5 +222,5 @@ def PUSH8H  : HalfRegHigh<OPC_PUSH8H, "push"> {}
 def POP16   : FullReg<OPC_POP16, "pop"> {}
 def POP8L   : HalfRegLow<OPC_POP8L, "pop"> {}
 def POP8H   : HalfRegHigh<OPC_POP8H, "pop"> {}
-def POPPC   : PCOnly<OPC_POPPC, "pop"> {}
 def RET     : Basic<OPC_POPPC, "ret"> {}
+def : InstAlias<"pop pc", (RET)>;

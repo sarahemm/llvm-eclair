@@ -108,6 +108,11 @@ class ECLairInst8<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
     : Instruction {
   field bits<8> Inst;
+  // SoftFail is a field the disassembler can use to provide a way for
+  // instructions to not match without killing the whole decode process. It is
+  // mainly used for ARM, but Tablegen expects this field to exist or it fails
+  // to build the decode table.
+  field bits<32> SoftFail = 0;
   let Size = 1;
 
   bits<8> Opcode = 0;
@@ -126,6 +131,11 @@ class ECLairInst16<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
     : Instruction {
   field bits<16> Inst;
+  // SoftFail is a field the disassembler can use to provide a way for
+  // instructions to not match without killing the whole decode process. It is
+  // mainly used for ARM, but Tablegen expects this field to exist or it fails
+  // to build the decode table.
+  field bits<32> SoftFail = 0;
   let Size = 2;
 
   bits<8> Opcode = 0;
@@ -144,6 +154,11 @@ class ECLairInst24<dag outs, dag ins, string opcodestr, string argstr,
              list<dag> pattern, InstFormat format>
     : Instruction {
   field bits<24> Inst;
+  // SoftFail is a field the disassembler can use to provide a way for
+  // instructions to not match without killing the whole decode process. It is
+  // mainly used for ARM, but Tablegen expects this field to exist or it fails
+  // to build the decode table.
+  field bits<32> SoftFail = 0;
   let Size = 3;
 
   bits<8> Opcode = 0;
@@ -157,7 +172,6 @@ class ECLairInst24<dag outs, dag ins, string opcodestr, string argstr,
   let AsmString = opcodestr # "\t" # argstr;
   let Pattern = pattern;
 }
-
 
 class ECLairInstNoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
     : ECLairInst8<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
@@ -190,7 +204,7 @@ class ECLairInstTwoReg<ECLairOpcode opcode, dag outs, dag ins, string opcodestr
 
 // TODO: see if we can collapse FixedReg and Reg together
 class ECLairInstRegImmWord<ECLairOpcode opcode, dag outs, dag ins, string opcodestr, string argstr>
-    : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatNoReg> {
+    : ECLairInst24<outs, ins, opcodestr, argstr, [], InstFormatOneReg> {
   bits<4> rd;
   bits<16> imm;
   
