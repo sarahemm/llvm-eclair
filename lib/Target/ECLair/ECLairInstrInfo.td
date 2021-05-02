@@ -208,12 +208,12 @@ def ST8L     : HalfRegLowImmWord<OPC_ST8L, "st"> {}
 def ST8H     : HalfRegHighImmWord<OPC_ST8H, "st"> {}
 
 def JMP   : SImmWord<OPC_JMP,   "jmp"> {}
-def JMPE  : ImmWord<OPC_JMPE,  "jmpe"> {}
-def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}
-def JMPZ  : ImmWord<OPC_JMPZ,  "jmpz"> {}
-def JMPNZ : ImmWord<OPC_JMPNZ, "jmpnz"> {}
-def JMPO  : ImmWord<OPC_JMPO,  "jmpo"> {}
-def JMPNO : ImmWord<OPC_JMPNO, "jmpno"> {}
+def JMPE  : SImmWord<OPC_JMPE,  "jmpe"> {}
+def JMPNE : SImmWord<OPC_JMPNE, "jmpne"> {}
+def JMPZ  : SImmWord<OPC_JMPZ,  "jmpz"> {}
+def JMPNZ : SImmWord<OPC_JMPNZ, "jmpnz"> {}
+def JMPO  : SImmWord<OPC_JMPO,  "jmpo"> {}
+def JMPNO : SImmWord<OPC_JMPNO, "jmpno"> {}
 def CALL  : ImmWord<OPC_CALL,  "call"> {}
 def RETI  : Basic<OPC_RETI,    "reti"> {}
 
