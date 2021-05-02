@@ -93,6 +93,10 @@ class ImmWord<ECLairOpcode opcode, string opcodestr>
       : ECLairInstImmWord<opcode, (outs), (ins uimm16:$imm), opcodestr, "$imm">;
 
 let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
+class SImmWord<ECLairOpcode opcode, string opcodestr>
+      : ECLairInstImmWord<opcode, (outs), (ins simm16:$imm), opcodestr, "$imm">;
+
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0 in
 class FullRegImmWord<ECLairOpcode opcode, string opcodestr>
     : ECLairInstRegImmWord<opcode, (outs), (ins FullWidth:$rd, uimm16:$imm), opcodestr, "$rd, $imm">;
 
@@ -203,7 +207,7 @@ def ST16     : FullRegImmWord<OPC_ST16, "st"> {}
 def ST8L     : HalfRegLowImmWord<OPC_ST8L, "st"> {}
 def ST8H     : HalfRegHighImmWord<OPC_ST8H, "st"> {}
 
-def JMP   : ImmWord<OPC_JMP,   "jmp"> {}
+def JMP   : SImmWord<OPC_JMP,   "jmp"> {}
 def JMPE  : ImmWord<OPC_JMPE,  "jmpe"> {}
 def JMPNE : ImmWord<OPC_JMPNE, "jmpne"> {}
 def JMPZ  : ImmWord<OPC_JMPZ,  "jmpz"> {}
